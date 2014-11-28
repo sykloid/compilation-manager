@@ -26,12 +26,23 @@ of:
                                        :interactive
                                        :search-path))))
 
+(defvar compilation-arguments nil)
+
 (defun compilation-manager-name-last-profile (name)
   "Saves the last executed compilation as the profile `NAME'
 
 If called interactively, prompt for `NAME'. With one prefix argument, edit the
 compilation command before naming. With two prefix arguments, edit the entire
-profile before naming.")
+profile before naming."
+  (let ((profile `(:compile-command ,compile-command
+                   :default-directory ,default-directory
+                   :interactive ,(if compilation-arguments (nth 1 compilation-arguments) nil)
+                   :search-path ,compilation-search-path)))
+    (if compilation-manager-profiles
+        (if (assoc name compilation-manager-profiles)
+            (setcdr (assoc name compilation-manager-profiles) profile)
+          (add-to-list 'compilation-manager-profiles `(,name . ,profile)))
+      (set 'compilation-manager-profiles `((,name . ,profile))))))
 
 (defun compilation-manager-run-profile (profile)
   "Runs the profile named `PROFILE'.
