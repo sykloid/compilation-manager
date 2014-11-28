@@ -1,0 +1,6 @@
+compilation-manager
+===================
+
+This package augments emacs' built-in `compilation-mode` with /profiles/ --
+collections of values for compilation-related variables, facilitating repeated
+recompilations.
