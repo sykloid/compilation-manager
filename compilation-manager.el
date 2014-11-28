@@ -26,4 +26,22 @@ of:
                                        :interactive
                                        :search-path))))
 
+(defun compilation-manager-name-last-profile (name)
+  "Saves the last executed compilation as the profile `NAME'
+
+If called interactively, prompt for `NAME'. With one prefix argument, edit the
+compilation command before naming. With two prefix arguments, edit the entire
+profile before naming.")
+
+(defun compilation-manager-run-profile (profile)
+  "Runs the profile named `PROFILE'.
+
+If called interactively, prompt for a profile from the list of profiles in
+`compilation-manager-profiles'. With one prefix argument, edit the compilation
+command before executing, keeping all other settings intact. With two prefix
+arguments, edit the entire profile before execution.
+
+While the effects of editing a profile are temporary, they can be made permanent
+by calling `compilation-manager-name-last-profile' directly afterwards.")
+
 (provide 'compilation-manager)
