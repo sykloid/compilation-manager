@@ -8,6 +8,13 @@
 
   :group 'compilation)
 
+(defvar compilation-manager-known-properties
+  '(:compile-command
+    :default-directory
+    :interactive
+    :search-path)
+  "Known properites permitted in a compilation profile.")
+
 (defcustom compilation-manager-profiles nil
   "Profile specifications for `compilation-manager'.
 
@@ -20,11 +27,7 @@ of:
 - `:interactive' :: Whether or not the compilation buffer is interactive."
 
   :type '(alist :key-type string
-                :value-type (plist
-                             :options (:compile-command
-                                       :default-directory
-                                       :interactive
-                                       :search-path))))
+                :value-type (plist :options compilation-manager-known-properties)))
 
 (defvar compilation-arguments nil)
 
