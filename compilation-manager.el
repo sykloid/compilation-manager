@@ -64,4 +64,8 @@ by calling `compilation-manager-name-last-profile' directly afterwards."
         (compilation-search-path (plist-get profile :search-path)))
     (compile compile-command (plist-get profile :interactive))))
 
+  ;; ;; Hack to persist search-path.
+  ;; ;; TODO: Create a more disciplined method for persisting specific settings.
+  ;; (set 'compilation-search-path (plist-get profile :search-path)))
+
 (provide 'compilation-manager)
