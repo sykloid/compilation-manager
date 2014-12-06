@@ -62,10 +62,10 @@ by calling `compilation-manager-name-last-profile' directly afterwards."
   (let ((compile-command (plist-get profile :compile-command))
         (default-directory (plist-get profile :default-directory))
         (compilation-search-path (plist-get profile :search-path)))
-    (compile compile-command (plist-get profile :interactive))))
+    (compile compile-command (plist-get profile :interactive)))
 
-  ;; ;; Hack to persist search-path.
-  ;; ;; TODO: Create a more disciplined method for persisting specific settings.
-  ;; (set 'compilation-search-path (plist-get profile :search-path)))
+  ;; Hack to persist search-path.
+  ;; TODO: Create a more disciplined method for persisting specific settings.
+  (set 'compilation-search-path (plist-get profile :search-path)))
 
 (provide 'compilation-manager)
