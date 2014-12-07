@@ -37,6 +37,7 @@ of:
 If called interactively, prompt for `NAME'. With one prefix argument, edit the
 compilation command before naming. With two prefix arguments, edit the entire
 profile before naming."
+  (interactive "MProfile Name: ")
   (let ((profile `(:compile-command ,compile-command
                    :default-directory ,default-directory
                    :interactive ,(if compilation-arguments (nth 1 compilation-arguments) nil)
