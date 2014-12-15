@@ -3,6 +3,14 @@
 
 ;;; Commentary:
 
+;;; `compilation-manager' provides a set of utilities for managing repeated recompilations with
+;;; emacs' built-in `compilation-mode'.
+;;;
+;;; The two entry-points to this library are `compilation-manager-name-last-profile' and
+;;; `compilation-manager-run-profile'.
+
+;;; Code:
+
 (defgroup compilation-manager nil
   "Customization for `compilation-manager'."
 
