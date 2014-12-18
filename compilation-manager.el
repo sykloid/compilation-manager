@@ -68,13 +68,11 @@ While the effects of editing a profile are temporary, they can be made permanent
 by calling `compilation-manager-name-last-profile' directly afterwards."
   (interactive (list (cdr (assoc (completing-read "Profile: " compilation-manager-profiles)
                                  compilation-manager-profiles))))
-  (let ((compile-command (plist-get profile :compile-command))
-        (default-directory (plist-get profile :default-directory))
-        (compilation-search-path (plist-get profile :search-path)))
-    (compile compile-command (plist-get profile :interactive)))
 
-  ;; Hack to persist search-path.
-  ;; TODO: Create a more disciplined method for persisting specific settings.
-  (set 'compilation-search-path (plist-get profile :search-path)))
+  (set 'compile-command (plist-get profile :compile-command))
+  (set 'compilation-search-path (plist-get profile :search-path))
+
+  (let ((default-directory (plist-get profile :default-directory)))
+    (compile compile-command (plist-get profile :interactive))))
 
 (provide 'compilation-manager)
