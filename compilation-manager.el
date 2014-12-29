@@ -11,6 +11,8 @@
 
 ;;; Code:
 
+(require 'compile)
+
 (defgroup compilation-manager nil
   "Customization for `compilation-manager'."
 
