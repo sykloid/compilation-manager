@@ -56,7 +56,7 @@ profile before naming."
           (add-to-list 'compilation-manager-profiles `(,name . ,profile)))
       (set 'compilation-manager-profiles `((,name . ,profile))))))
 
-(defun compilation-manager-run-profile (profile)
+(defun compilation-manager-run-profile (profile edit)
   "Runs the profile named `PROFILE'.
 
 If called interactively, prompt for a profile from the list of profiles in
@@ -67,12 +67,20 @@ arguments, edit the entire profile before execution.
 While the effects of editing a profile are temporary, they can be made permanent
 by calling `compilation-manager-name-last-profile' directly afterwards."
   (interactive (list (cdr (assoc (completing-read "Profile: " compilation-manager-profiles)
-                                 compilation-manager-profiles))))
+                                 compilation-manager-profiles))
+                     current-prefix-arg))
 
-  (set 'compile-command (plist-get profile :compile-command))
-  (set 'compilation-search-path (plist-get profile :search-path))
+  (let ((profile (copy-tree profile)))
+    (cond
+     ((equal edit '(4))
+      (plist-put profile :compile-command (compilation-read-command (plist-get profile :compile-command))))
+     ((equal edit '(16))
+      (set 'profile (car (read-from-string (read-string "Edit Profile: " (prin1-to-string profile)))))))
 
-  (let ((default-directory (plist-get profile :default-directory)))
-    (compile compile-command (plist-get profile :interactive))))
+    (set 'compile-command (plist-get profile :compile-command))
+    (set 'compilation-search-path (plist-get profile :search-path))
+
+    (let ((default-directory (plist-get profile :default-directory)))
+      (compile compile-command (plist-get profile :interactive)))))
 
 (provide 'compilation-manager)
