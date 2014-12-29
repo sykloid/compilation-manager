@@ -45,7 +45,7 @@ compilation command before naming. With two prefix arguments, edit the entire
 profile before naming."
   (interactive "MProfile Name: ")
   (let ((profile `(:compile-command ,compile-command
-                   :default-directory ,default-directory
+                   :default-directory ,(or compilation-directory default-directory)
                    :interactive ,(if compilation-arguments (nth 1 compilation-arguments) nil)
                    :search-path ,compilation-search-path)))
     (if compilation-manager-profiles
