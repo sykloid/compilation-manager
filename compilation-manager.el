@@ -34,10 +34,8 @@ of:
 - `:search-path' :: The value of `compilation-search-path'.
 - `:interactive' :: Whether or not the compilation buffer is interactive."
 
-  :type '(alist :key-type string
-                :value-type (plist :options compilation-manager-known-properties)))
-
-(defvar compilation-arguments nil)
+  :type `(alist :key-type string
+                :value-type (plist :options ,compilation-manager-known-properties)))
 
 (defun compilation-manager-name-last-profile (name)
   "Saves the last executed compilation as the profile `NAME'
