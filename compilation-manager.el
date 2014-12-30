@@ -39,17 +39,23 @@ of:
   :type `(alist :key-type string
                 :value-type (plist :options ,compilation-manager-known-properties)))
 
-(defun compilation-manager-name-last-profile (name)
+(defun compilation-manager-name-last-profile (name edit)
   "Saves the last executed compilation as the profile `NAME'
 
 If called interactively, prompt for `NAME'. With one prefix argument, edit the
 compilation command before naming. With two prefix arguments, edit the entire
 profile before naming."
-  (interactive "MProfile Name: ")
+  (interactive "MProfile Name: \nP")
   (let ((profile `(:compile-command ,compile-command
                    :default-directory ,(or compilation-directory default-directory)
                    :interactive ,(if compilation-arguments (nth 1 compilation-arguments) nil)
                    :search-path ,compilation-search-path)))
+    (cond
+     ((equal edit '(4))
+      (plist-put profile :compile-command (compilation-read-command (plist-get profile :compile-command))))
+     ((equal edit '(16))
+      (set 'profile (car (read-from-string (read-string "Edit Profile: " (prin1-to-string profile)))))))
+
     (if compilation-manager-profiles
         (if (assoc name compilation-manager-profiles)
             (setcdr (assoc name compilation-manager-profiles) profile)
