@@ -1,4 +1,4 @@
-;;; compilation-manager.el - profile management for emacs' compilation-mode.
+;;; compilation-manager.el --- profile management for emacs' compilation-mode.
 ;;; P.C. Shyamshankar <sykora@lucentbeing.com>
 
 ;;; Commentary:
@@ -39,6 +39,7 @@ of:
   :type `(alist :key-type string
                 :value-type (plist :options ,compilation-manager-known-properties)))
 
+;;;###autoload
 (defun compilation-manager-name-last-profile (name edit)
   "Saves the last executed compilation as the profile `NAME'
 
@@ -62,6 +63,7 @@ profile before naming."
           (add-to-list 'compilation-manager-profiles `(,name . ,profile)))
       (set 'compilation-manager-profiles `((,name . ,profile))))))
 
+;;;###autoload
 (defun compilation-manager-run-profile (profile edit)
   "Runs the profile named `PROFILE'.
 
@@ -90,3 +92,4 @@ by calling `compilation-manager-name-last-profile' directly afterwards."
       (compile compile-command (plist-get profile :interactive)))))
 
 (provide 'compilation-manager)
+;;; compilation-manager.el ends here
